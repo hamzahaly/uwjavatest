@@ -21,15 +21,23 @@ public class Person {
   }
 
   public void setAge(int n) {
-    age = n;
+    if n < 0 {
+      throw new IllegalArgumentException("Age must be positive";
+    } else {
+      age = n;
+    }
   }
 
   public void setName(String s) {
-    name = s;
+    if n == null {
+      throw new IllegalArgumentException("Name cannot be null");
+    } else {
+      name = s;
+    }
   }
 
   public void setSalary(Double n) {
-
+    salary = n;
   }
 
   public int getAge() {
@@ -40,10 +48,10 @@ public class Person {
     return name;
   } 
 
-  public Double getSalary() {
+  public double getSalary() {
     return salary;
   }
-  
+
   public void setSSN(String value) {
     String old = ssn;
     ssn = value;
