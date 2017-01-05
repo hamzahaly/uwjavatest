@@ -13,13 +13,37 @@ public class Person {
   public Person() {
     this("", 0, 0.0d);
   }
-  
+
   public Person(String n, int a, double s) {
     name = n;
     age = a;
     salary = s;
   }
 
+  public void setAge(int n) {
+    age = n;
+  }
+
+  public void setName(String s) {
+    name = s;
+  }
+
+  public void setSalary(Double n) {
+
+  }
+
+  public int getAge() {
+    return age;
+  }
+
+  pubic String getName() {
+    return name;
+  } 
+
+  public Double getSalary() {
+    return salary;
+  }
+  
   public void setSSN(String value) {
     String old = ssn;
     ssn = value;
