@@ -3,11 +3,12 @@ package com.tedneward.example;
 import java.beans.*;
 import java.util.*;
 
-public class Person {
+public class Person implements Comparable<Person> {
   private int age;
   private String name;
   private double salary;
   private String ssn;
+  private int count;
   private boolean propertyChangeFired = false;
   
   public Person() {
@@ -15,36 +16,37 @@ public class Person {
   }
 
   public Person(String n, int a, double s) {
-    name = n;
-    age = a;
-    salary = s;
+    this.name = n;
+    this.age = a;
+    this.salary = s;
+    this.count++;
   }
 
   public void setAge(int n) {
-    if n < 0 {
-      throw new IllegalArgumentException("Age must be positive";
+    if (n < 0) {
+      throw new IllegalArgumentException("Age must be positive");
     } else {
-      age = n;
+      this.age = n;
     }
   }
 
   public void setName(String s) {
-    if n == null {
+    if (s == null) {
       throw new IllegalArgumentException("Name cannot be null");
     } else {
-      name = s;
+      this.name = s;
     }
   }
 
-  public void setSalary(Double n) {
-    salary = n;
+  public void setSalary(double n) {
+    this.salary = n;
   }
 
   public int getAge() {
     return age;
   }
 
-  pubic String getName() {
+  public String getName() {
     return name;
   } 
 
@@ -54,7 +56,7 @@ public class Person {
 
   public void setSSN(String value) {
     String old = ssn;
-    ssn = value;
+    this.ssn = value;
     
     this.pcs.firePropertyChange("ssn", old, value);
     propertyChangeFired = true;
@@ -79,6 +81,19 @@ public class Person {
     return "{{FIXME}}";
   }
 
+  public static ArrayList<Person> getNewardFamily() {
+      return null;
+  }
+
+  public int count() {
+    return count;
+  }
+
+  @Override
+  public int compareTo(Person anotherPerson) {
+    return Double.compare(anotherPerson.getSalary(), this.salary);
+  }
+
   // PropertyChangeListener support; you shouldn't need to change any of
   // these two methods or the field
   //
@@ -88,5 +103,12 @@ public class Person {
   }
   public void removePropertyChangeListener(PropertyChangeListener listener) {
       this.pcs.removePropertyChangeListener(listener);
+  }
+
+  public class AgeComparator implements Comparable<Person> {
+    
+    public int compareTo(Person anotherPerson) {
+      return Integer.compare(anotherPerson.getAge(), age);
+    }
   }
 }
