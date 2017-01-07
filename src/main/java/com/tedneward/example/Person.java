@@ -3,7 +3,7 @@ package com.tedneward.example;
 import java.beans.*;
 import java.util.*;
 
-public class Person implements Comparable<Person> {
+public class Person implements Comparable<Person>{
   private int age;
   private String name;
   private double salary;
@@ -13,20 +13,21 @@ public class Person implements Comparable<Person> {
   
   public Person() {
     this("", 0, 0.0d);
+    count++;
   }
 
   public Person(String n, int a, double s) {
-    this.name = n;
-    this.age = a;
-    this.salary = s;
-    this.count++;
+    name = n;
+    age = a;
+    salary = s;
+    count++;
   }
 
   public void setAge(int n) {
     if (n < 0) {
       throw new IllegalArgumentException("Age must be positive");
     } else {
-      this.age = n;
+      age = n;
     }
   }
 
@@ -34,12 +35,12 @@ public class Person implements Comparable<Person> {
     if (s == null) {
       throw new IllegalArgumentException("Name cannot be null");
     } else {
-      this.name = s;
+      name = s;
     }
   }
 
   public void setSalary(double n) {
-    this.salary = n;
+    salary = n;
   }
 
   public int getAge() {
@@ -56,7 +57,7 @@ public class Person implements Comparable<Person> {
 
   public void setSSN(String value) {
     String old = ssn;
-    this.ssn = value;
+    ssn = value;
     
     this.pcs.firePropertyChange("ssn", old, value);
     propertyChangeFired = true;
@@ -76,13 +77,39 @@ public class Person implements Comparable<Person> {
   public int timeWarp() {
     return age + 10;
   }
+
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null) {
+      return false;
+    }
+    if (!(o instanceof Person)) {
+      return false;
+    }
+    Person person = (Person) o;
+    // field comparison
+    return Objects.equals(name, person.name) && Objects.equals(age, person.age);
+    //return (o.getAge() == this.age) && (o.getName() == this.name);
+  }
   
-  public String tostring() {
-    return "{{FIXME}}";
+  @Override
+  public String toString() {
+    return "[Person name:" + this.name + " age:" + this.age + " salary:" + this.salary + "]";
   }
 
   public static ArrayList<Person> getNewardFamily() {
-      return null;
+    ArrayList<Person> fam = new ArrayList<Person>();
+    Person matthew = new Person("Matthew", 15, 0);
+    Person michael = new Person("Michael", 22, 10000);
+    Person ted = new Person("Ted", 41, 250000);
+    Person charlotte = new Person("Charlotte", 43, 150000);
+    fam.add(ted);
+    fam.add(charlotte);
+    fam.add(michael);
+    fam.add(matthew);
+    return fam;
   }
 
   public int count() {
@@ -105,10 +132,11 @@ public class Person implements Comparable<Person> {
       this.pcs.removePropertyChangeListener(listener);
   }
 
-  public class AgeComparator implements Comparable<Person> {
+  public static class AgeComparator implements Comparator<Person>{
     
-    public int compareTo(Person anotherPerson) {
-      return Integer.compare(anotherPerson.getAge(), age);
+    @Override
+    public int compare(Person person, Person anotherPerson) {
+      return Integer.compare(person.getAge(), anotherPerson.getAge());
     }
   }
 }

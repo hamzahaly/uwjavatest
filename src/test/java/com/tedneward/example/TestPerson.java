@@ -51,16 +51,16 @@ public class TestPerson {
     
     Person p3 = new Person("Ted", 43, 250000);
     assertEquals(p1, p3);
-    
+
     Person p4 = new Person("Ted", 43, 500000);
     assertEquals(p1, p4);
     
     Person p5 = new Person("Ted", 45, 250000);
     assertFalse(p1.equals(p5));
-    
+
     Person p6 = new Person();
     assertFalse(p1.equals(p6));
-    
+
     assertFalse(p1.equals(null));
     assertFalse(p1.equals(new Integer(27)));
   }
